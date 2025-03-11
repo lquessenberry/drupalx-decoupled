@@ -29,11 +29,23 @@ ddev start
 # 1. Enable required Drupal modules
 # 2. Install Node.js dependencies
 # 3. Create default environment configuration
+
+# Start development servers
+ddev start-dev
 ```
 
-After DDEV starts, you can use these commands:
-- `ddev start-nextjs` - Start the Next.js development server
-- `ddev start-storybook` - Start the Storybook server
+The `start-dev` command will launch both Next.js and Storybook in a tmux session:
+- Next.js: [http://localhost:3000](http://localhost:3000)
+- Storybook: [http://localhost:6006](http://localhost:6006)
+
+**Tmux Commands**:
+- `ctrl-b n` - Switch between server windows
+- `ctrl-b d` - Detach from tmux (servers keep running)
+- `ddev start-dev` - Reattach to running servers
+
+Alternatively, you can start servers individually:
+- `ddev start-nextjs` - Start only the Next.js server
+- `ddev start-storybook` - Start only the Storybook server
 
 ## Manual Installation (Non-DDEV)
 
@@ -122,8 +134,9 @@ npm run storybook
 
 - `ddev start` - Start the project (automatically runs setup)
 - `ddev setup-axanar` - Run the setup script manually
-- `ddev start-nextjs` - Start the Next.js development server
-- `ddev start-storybook` - Start the Storybook server
+- `ddev start-dev` - Start both Next.js and Storybook (recommended)
+- `ddev start-nextjs` - Start only the Next.js server
+- `ddev start-storybook` - Start only the Storybook server
 
 ## Additional Resources
 

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+## Description: Start both Next.js and Storybook development servers
+## Usage: start-dev
+## Example: "ddev start-dev"
+
+echo "🚀 Starting development servers..."
+
+# Function to run a command in a new tmux window
+create_window() {
+    local name=$1
+    local command=$2
+    tmux new-window -d -n "$name" "cd /var/www/html/nextjs && $command"
+}
+
+# Start tmux session if not already in one
+if [ -z "$TMUX" ]; then
+    tmux new-session -d -s axanar
+fi
+
+# Create windows for Next.js and Storybook
+create_window "nextjs" "npm run dev"
+create_window "storybook" "npm run storybook"
+
+# Attach to the tmux session
+if [ -z "$TMUX" ]; then
+    echo "✨ Development servers started!"
+    echo "📱 Next.js running at: http://localhost:3000"
+    echo "📚 Storybook running at: http://localhost:6006"
+    echo "💡 Use 'ctrl-b n' to switch between server windows"
+    echo "💡 Use 'ctrl-b d' to detach from tmux (servers will keep running)"
+    tmux attach-session -t axanar
+fi
