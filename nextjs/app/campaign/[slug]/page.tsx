@@ -1,6 +1,8 @@
+import { Suspense } from 'react'
 import { getClient } from '@/lib/apollo-client'
 import { DonorCampaign } from '@/components/nodes/DonorCampaign'
 import { mockDonorCampaign } from '@/lib/mocks/donor'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
 interface CampaignPageProps {
   params: {
@@ -15,7 +17,9 @@ export default async function CampaignPage({ params }: CampaignPageProps) {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <DonorCampaign node={campaign} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <DonorCampaign node={campaign} />
+      </Suspense>
     </main>
   )
 }

@@ -1,12 +1,44 @@
 import React from 'react'
 import { NodeDonorCampaign } from '@/lib/types'
 import { DonorPackage } from '../DonorPackage/DonorPackage'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
 interface DonorCampaignProps {
-  node: NodeDonorCampaign
+  node?: NodeDonorCampaign
+  loading?: boolean
+  error?: Error
 }
 
-export function DonorCampaign({ node }: DonorCampaignProps) {
+export function DonorCampaign({ node, loading, error }: DonorCampaignProps) {
+  if (loading) {
+    return (
+      <div className="min-h-[400px] flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-[400px] flex items-center justify-center">
+        <div className="text-center text-red-600">
+          <h3 className="text-xl font-semibold mb-2">Error Loading Campaign</h3>
+          <p>{error.message}</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!node) {
+    return (
+      <div className="min-h-[400px] flex items-center justify-center">
+        <div className="text-center text-gray-600">
+          <h3 className="text-xl font-semibold">Campaign Not Found</h3>
+        </div>
+      </div>
+    )
+  }
+
   const {
     title,
     body,

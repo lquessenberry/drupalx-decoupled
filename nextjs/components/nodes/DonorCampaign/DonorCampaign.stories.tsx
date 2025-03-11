@@ -17,6 +17,18 @@ export const Default: Story = {
   },
 }
 
+export const Loading: Story = {
+  args: {
+    loading: true,
+  },
+}
+
+export const Error: Story = {
+  args: {
+    error: new Error('Failed to load campaign data'),
+  },
+}
+
 export const NoPackages: Story = {
   args: {
     node: {
@@ -24,4 +36,8 @@ export const NoPackages: Story = {
       fieldPackages: { entities: [] },
     },
   },
+}
+
+export const NotFound: Story = {
+  args: {},
 }
