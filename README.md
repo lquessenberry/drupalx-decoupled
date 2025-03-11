@@ -13,37 +13,43 @@ This project template leverages the DrupalX Decoupled distribution, featuring en
 * Installs the DrupalX recipe with Axanar donor system configuration
 * Provides a Next.js frontend with Storybook component documentation
 
-## Installing
-
-### 1. Create your project:
+## Quick Start
 
 ```bash
+# Create and enter project directory
 composer create-project drupalninja/drupalx-decoupled:10.x-dev drupalx-decoupled-starter --no-interaction
 cd drupalx-decoupled-starter
 git checkout axanar
+
+# Configure and start DDEV
+ddev config
+ddev start
+
+# The post-start hook will automatically:
+# 1. Enable required Drupal modules
+# 2. Install Node.js dependencies
+# 3. Create default environment configuration
 ```
 
-### 2. Configure permissions:
+After DDEV starts, you can use these commands:
+- `ddev start-nextjs` - Start the Next.js development server
+- `ddev start-storybook` - Start the Storybook server
+
+## Manual Installation (Non-DDEV)
+
+### 1. Configure permissions:
 
 ```bash
 chmod -R 755 web/sites/default/files/
 ```
 
-### 3. Set up DDEV:
+### 2. Enable Axanar and Commerce modules:
 
 ```bash
-ddev config
-ddev start
-ddev install
+drush en axanar_donor commerce commerce_checkout commerce_cart commerce_payment commerce_paypal -y
 ```
 
-### 4. Enable Axanar and Commerce modules:
-
-```bash
-ddev drush en axanar_donor commerce commerce_checkout commerce_cart commerce_payment commerce_paypal -y
-```
-
-### 5. Set up the Next.js frontend:
+### 3. Set up the Next.js frontend:
 
 ```bash
 cd nextjs
@@ -51,7 +57,7 @@ nvm install
 npm install
 ```
 
-### 6. Configure environment variables:
+### 4. Configure environment variables:
 
 Create a `.env.local` file in the `nextjs` directory:
 
@@ -61,16 +67,14 @@ NEXT_PUBLIC_USE_MOCK_DATA=true
 NEXT_PUBLIC_PAYPAL_CLIENT_ID=your_paypal_client_id_here
 ```
 
-### 7. Start the development servers:
+### 5. Start the development servers:
 
-In one terminal:
 ```bash
+# In one terminal:
 cd nextjs
 npm run dev
-```
 
-In another terminal:
-```bash
+# In another terminal:
 cd nextjs
 npm run storybook
 ```
@@ -101,7 +105,7 @@ npm run storybook
 
 2. **Component Development**:
    - Use Storybook for component development and testing
-   - Run `npm run storybook` to access the component library
+   - Run `ddev start-storybook` to access the component library
    - Components are located in `nextjs/components/nodes/`
 
 3. **GraphQL Integration**:
@@ -113,6 +117,13 @@ npm run storybook
    - Configure PayPal in Drupal Commerce settings
    - Set your PayPal Client ID in `.env.local`
    - Test payments using PayPal Sandbox mode
+
+## DDEV Commands
+
+- `ddev start` - Start the project (automatically runs setup)
+- `ddev setup-axanar` - Run the setup script manually
+- `ddev start-nextjs` - Start the Next.js development server
+- `ddev start-storybook` - Start the Storybook server
 
 ## Additional Resources
 

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## Description: Start Next.js development server
+## Usage: start-nextjs
+## Example: "ddev start-nextjs"
+
+cd /var/www/html/nextjs
+npm run dev

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## Description: Start Storybook server
+## Usage: start-storybook
+## Example: "ddev start-storybook"
+
+cd /var/www/html/nextjs
+npm run storybook

@@ -12,7 +12,24 @@ database:
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []
+nodejs_version: "20"
 corepack_enable: false
+
+# Expose Next.js and Storybook ports
+web_extra_exposed_ports:
+  - name: nextjs
+    container_port: 3000
+    http_port: 3000
+    https_port: 3000
+  - name: storybook
+    container_port: 6006
+    http_port: 6006
+    https_port: 6006
+
+# Add post-start hook to run setup
+hooks:
+  post-start:
+    - exec: setup-axanar
 
 # Key features of DDEV's config.yaml:
 

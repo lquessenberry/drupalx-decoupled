@@ -1,0 +1,32 @@
+#!/bin/bash
+
+## Description: Setup Axanar project (Drupal + NextJS + Storybook)
+## Usage: setup-axanar
+## Example: "ddev setup-axanar"
+
+echo "🚀 Setting up Axanar project..."
+
+# Install Drupal modules
+echo "📦 Installing Drupal modules..."
+drush en axanar_donor commerce commerce_checkout commerce_cart commerce_payment commerce_paypal -y
+
+# Navigate to NextJS directory
+cd /var/www/html/nextjs
+
+# Install Node.js dependencies
+echo "📦 Installing Node.js dependencies..."
+npm install
+
+# Create development environment file if it doesn't exist
+if [ ! -f .env.local ]; then
+    echo "📝 Creating .env.local file..."
+    cat > .env.local << EOL
+NEXT_PUBLIC_DRUPAL_BASE_URL=https://drupalx-graphql.ddev.site
+NEXT_PUBLIC_USE_MOCK_DATA=true
+NEXT_PUBLIC_PAYPAL_CLIENT_ID=your_paypal_client_id_here
+EOL
+fi
+
+echo "✅ Setup complete! You can now run:"
+echo "  - ddev start-nextjs    (for Next.js development server)"
+echo "  - ddev start-storybook (for Storybook)"
