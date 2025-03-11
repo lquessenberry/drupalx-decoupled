@@ -1,0 +1,19 @@
+query GetDonorCampaign($id: ID!) {
+  node(id: $id) {
+    ... on NodeDonorCampaign {
+      ...DonorCampaignFragment
+    }
+  }
+}
+
+query GetDonorCampaignByPath($path: String!) {
+  route(path: $path) {
+    ... on RouteInternal {
+      entity {
+        ... on NodeDonorCampaign {
+          ...DonorCampaignFragment
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+query GetDonorPerk($id: ID!) {
+  node(id: $id) {
+    ... on NodeDonorPerk {
+      ...DonorPerkFragment
+    }
+  }
+}
+
+query GetDonorPerkByPath($path: String!) {
+  route(path: $path) {
+    ... on RouteInternal {
+      entity {
+        ... on NodeDonorPerk {
+          ...DonorPerkFragment
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+query GetDonorPackage($id: ID!) {
+  node(id: $id) {
+    ... on NodeDonorPackage {
+      ...DonorPackageFragment
+    }
+  }
+}
+
+query GetDonorPackageByPath($path: String!) {
+  route(path: $path) {
+    ... on RouteInternal {
+      entity {
+        ... on NodeDonorPackage {
+          ...DonorPackageFragment
+        }
+      }
+    }
+  }
+}
