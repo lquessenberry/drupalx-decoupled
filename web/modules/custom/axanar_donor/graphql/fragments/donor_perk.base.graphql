@@ -1,0 +1,20 @@
+fragment DonorPerkFragment on NodeDonorPerk {
+  id
+  title
+  status
+  created {
+    timestamp
+  }
+  changed {
+    timestamp
+  }
+  path {
+    alias
+    pid
+    langcode
+  }
+  body {
+    processed
+    summary
+  }
+}

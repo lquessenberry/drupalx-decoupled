@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_packages
+    - node.type.donor_campaign
+    - node.type.donor_package
+id: node.donor_campaign.field_packages
+field_name: field_packages
+entity_type: node
+bundle: donor_campaign
+label: 'Donor Packages'
+description: 'The donor packages available in this campaign.'
+required: false
+translatable: true
+default_value: []
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      donor_package: donor_package
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

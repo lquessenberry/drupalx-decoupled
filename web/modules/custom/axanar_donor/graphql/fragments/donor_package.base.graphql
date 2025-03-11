@@ -1,0 +1,24 @@
+fragment DonorPackageFragment on NodeDonorPackage {
+  id
+  title
+  status
+  created {
+    timestamp
+  }
+  changed {
+    timestamp
+  }
+  path {
+    alias
+    pid
+    langcode
+  }
+  fieldPackagePrice
+  fieldPackagePerks {
+    entities {
+      ... on NodeDonorPerk {
+        ...DonorPerkFragment
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - node
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Donor Perk'
+type: donor_perk
+description: 'A specific perk that can be included in donor packages.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_campaign_goal
+    - node.type.donor_campaign
+id: node.donor_campaign.field_campaign_goal
+field_name: field_campaign_goal
+entity_type: node
+bundle: donor_campaign
+label: 'Campaign Goal'
+description: 'The fundraising goal for this campaign.'
+required: true
+translatable: true
+default_value: []
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: '$'
+  suffix: ''
+field_type: decimal

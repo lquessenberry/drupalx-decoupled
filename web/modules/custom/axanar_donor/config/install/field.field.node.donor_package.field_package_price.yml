@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_package_price
+    - node.type.donor_package
+id: node.donor_package.field_package_price
+field_name: field_package_price
+entity_type: node
+bundle: donor_package
+label: 'Package Price'
+description: 'The price of this donor package.'
+required: true
+translatable: true
+default_value: []
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: '$'
+  suffix: ''
+field_type: decimal

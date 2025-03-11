@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_packages
+field_name: field_packages
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {}

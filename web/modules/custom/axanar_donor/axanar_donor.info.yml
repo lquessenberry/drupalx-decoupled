@@ -1,0 +1,13 @@
+name: Axanar Donor
+type: module
+description: 'Provides donor campaign, package, and perk functionality for Axanar.'
+package: Axanar
+core_version_requirement: ^10
+dependencies:
+  - drupal:node
+  - drupal:field
+  - drupal:text
+  - drupal:datetime
+  - drupal:path
+  - paragraphs:paragraphs
+  - graphql:graphql
