@@ -27,12 +27,20 @@ This document tracks the development progress of the Axanar donor system integra
 - Added Suspense boundaries for better loading UX
 - Made components more resilient with proper null checks
 
+### [0.4.0] - 2025-03-10
+#### Complete Component Stories
+- Added loading and error states to DonorPackage component
+- Added loading and error states to DonorPerk component
+- Created comprehensive Storybook stories for all components
+- Added onSelect callback to DonorPackage for donation flow
+- Improved component documentation with Storybook
+
 ## Development Roadmap
 
 ### Next Steps
 1. [x] Add loading states to components
 2. [x] Implement error handling
-3. [ ] Complete Storybook stories for Package and Perk components
+3. [x] Complete Storybook stories for Package and Perk components
 4. [ ] Set up donation flow
 5. [ ] Integrate with user authentication
 6. [ ] Switch from mock to real data

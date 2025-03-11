@@ -1,13 +1,47 @@
 import React from 'react'
 import { NodeDonorPackage } from '@/lib/types'
 import { DonorPerk } from '../DonorPerk/DonorPerk'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
 interface DonorPackageProps {
-  node: NodeDonorPackage
+  node?: NodeDonorPackage
+  loading?: boolean
+  error?: Error
+  onSelect?: (packageId: string) => void
 }
 
-export function DonorPackage({ node }: DonorPackageProps) {
+export function DonorPackage({ node, loading, error, onSelect }: DonorPackageProps) {
+  if (loading) {
+    return (
+      <div className="donor-package rounded-lg border border-gray-200 p-6 min-h-[300px] flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="donor-package rounded-lg border border-gray-200 p-6 min-h-[300px] flex items-center justify-center">
+        <div className="text-center text-red-600">
+          <h3 className="text-xl font-semibold mb-2">Error Loading Package</h3>
+          <p>{error.message}</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!node) {
+    return (
+      <div className="donor-package rounded-lg border border-gray-200 p-6 min-h-[300px] flex items-center justify-center">
+        <div className="text-center text-gray-600">
+          <h3 className="text-xl font-semibold">Package Not Found</h3>
+        </div>
+      </div>
+    )
+  }
+
   const {
+    id,
     title,
     fieldPackagePrice,
     fieldPackagePerks,
@@ -35,10 +69,7 @@ export function DonorPackage({ node }: DonorPackageProps) {
 
       <button 
         className="w-full mt-6 px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors"
-        onClick={() => {
-          // TODO: Implement donation flow
-          console.log('Select package:', node.id)
-        }}
+        onClick={() => onSelect?.(id)}
       >
         Select Package
       </button>
