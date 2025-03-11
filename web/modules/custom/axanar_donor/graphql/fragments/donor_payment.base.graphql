@@ -1,0 +1,13 @@
+fragment DonorPaymentFragment on DonorPayment {
+  id
+  orderId
+  amount {
+    number
+    currencyCode
+  }
+  paymentGateway
+  paymentMethod
+  state
+  authorizedTime
+  completedTime
+}

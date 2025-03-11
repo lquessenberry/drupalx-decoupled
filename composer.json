@@ -12,6 +12,8 @@
     "require": {
         "composer/installers": "^2.1",
         "cweagans/composer-patches": "^1.7",
+        "drupal/commerce": "^3.0",
+        "drupal/commerce_paypal": "^1.8",
         "drupal/decoupled_preview_iframe": "^1.0",
         "drupal/graphql_compose_fragments": "1.0.x-dev",
         "drupal/graphql_compose_preview": "^1.0",

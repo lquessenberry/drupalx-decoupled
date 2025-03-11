@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NodeDonorPackage } from '@/lib/types'
 import { DonorPerk } from '../DonorPerk/DonorPerk'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { PayPalButton } from '@/components/payment/PayPalButton'
 
 interface DonorPackageProps {
   node?: NodeDonorPackage
@@ -11,6 +12,9 @@ interface DonorPackageProps {
 }
 
 export function DonorPackage({ node, loading, error, onSelect }: DonorPackageProps) {
+  const [showPayment, setShowPayment] = useState(false)
+  const [paymentError, setPaymentError] = useState<string>()
+
   if (loading) {
     return (
       <div className="donor-package rounded-lg border border-gray-200 p-6 min-h-[300px] flex items-center justify-center">
@@ -47,6 +51,17 @@ export function DonorPackage({ node, loading, error, onSelect }: DonorPackagePro
     fieldPackagePerks,
   } = node
 
+  const handlePaymentSuccess = (details: any) => {
+    console.log('Payment successful:', details)
+    // TODO: Update order status in Drupal
+    onSelect?.(id)
+  }
+
+  const handlePaymentError = (error: any) => {
+    console.error('Payment failed:', error)
+    setPaymentError('Payment failed. Please try again.')
+  }
+
   return (
     <div className="donor-package rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
       <div className="flex justify-between items-start mb-4">
@@ -67,12 +82,35 @@ export function DonorPackage({ node, loading, error, onSelect }: DonorPackagePro
         </div>
       )}
 
-      <button 
-        className="w-full mt-6 px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors"
-        onClick={() => onSelect?.(id)}
-      >
-        Select Package
-      </button>
+      {paymentError && (
+        <div className="mt-4 p-3 bg-red-50 text-red-600 rounded-md text-sm">
+          {paymentError}
+        </div>
+      )}
+
+      {!showPayment ? (
+        <button 
+          className="w-full mt-6 px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors"
+          onClick={() => setShowPayment(true)}
+        >
+          Select Package
+        </button>
+      ) : (
+        <div className="mt-6">
+          <PayPalButton
+            amount={fieldPackagePrice}
+            packageId={id}
+            onSuccess={handlePaymentSuccess}
+            onError={handlePaymentError}
+          />
+          <button
+            className="w-full mt-3 px-6 py-2 text-gray-600 hover:text-gray-800 text-sm"
+            onClick={() => setShowPayment(false)}
+          >
+            Cancel
+          </button>
+        </div>
+      )}
     </div>
   )
 }

@@ -35,16 +35,26 @@ This document tracks the development progress of the Axanar donor system integra
 - Added onSelect callback to DonorPackage for donation flow
 - Improved component documentation with Storybook
 
+### [0.5.0] - 2025-03-10
+#### Payment Integration Setup
+- Installed and configured Drupal Commerce and PayPal modules
+- Created GraphQL fragments for payment operations
+- Implemented PaymentProvider with PayPal integration
+- Added PayPal button component with error handling
+- Updated DonorPackage component to handle payments
+
 ## Development Roadmap
 
 ### Next Steps
 1. [x] Add loading states to components
 2. [x] Implement error handling
 3. [x] Complete Storybook stories for Package and Perk components
-4. [ ] Set up donation flow
-5. [ ] Integrate with user authentication
-6. [ ] Switch from mock to real data
+4. [x] Set up payment integration foundation
+5. [ ] Complete payment flow implementation
+6. [ ] Integrate with user authentication
+7. [ ] Switch from mock to real data
 
 ### Known Issues
 - RouteEntityUnion type not properly supporting NodeDonorCampaign type
 - Using direct node queries instead of route queries as temporary solution
+- Payment integration using mock data until GraphQL mutations are fully implemented

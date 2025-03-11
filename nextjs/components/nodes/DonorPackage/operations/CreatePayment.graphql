@@ -1,0 +1,12 @@
+mutation CreateDonorPayment($input: DonorPaymentInput!) {
+  createDonorPayment(input: $input) {
+    payment {
+      ...DonorPaymentFragment
+    }
+    paypalOrderId
+    clientSecret
+    errors {
+      message
+    }
+  }
+}
