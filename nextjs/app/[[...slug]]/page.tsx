@@ -45,24 +45,15 @@ import {
   MetaTagScriptAttributesFragment
 } from "@/graphql/fragments/metatag";
 
-import { ParagraphAccordionFragment, ParagraphAccordionItemFragment } from "@/components/paragraphs/ParagraphAccordion";
-import { ParagraphBulletFragment } from "@/components/paragraphs/ParagraphBullet";
-import { ParagraphCarouselFragment } from "@/components/paragraphs/ParagraphCarousel";
-import { ParagraphCardFragment } from "@/components/paragraphs/ParagraphCard";
-import { ParagraphCardGroupFragment } from "@/components/paragraphs/ParagraphCardGroup";
-import { ParagraphEmbedFragment } from "@/components/paragraphs/ParagraphEmbed";
-import { ParagraphGalleryFragment } from "@/components/paragraphs/ParagraphGallery";
-import { ParagraphHeroFragment } from "@/components/paragraphs/ParagraphHero";
-import { ParagraphLogoCollectionFragment } from "@/components/paragraphs/ParagraphLogoCollection";
-import { ParagraphMediaFragment } from "@/components/paragraphs/ParagraphMedia";
-import { ParagraphNewsletterFragment } from "@/components/paragraphs/ParagraphNewsletter";
-import { ParagraphPricingFragment, ParagraphPricingCardFragment } from "@/components/paragraphs/ParagraphPricing";
-import { ParagraphQuoteFragment } from "@/components/paragraphs/ParagraphQuote";
-import { ParagraphSidebysideFragment } from "@/components/paragraphs/ParagraphSidebyside";
-import { ParagraphStatsItemFragment } from "@/components/paragraphs/ParagraphStatsItem";
-import { ParagraphTextFragment } from "@/components/paragraphs/ParagraphText";
+import {
+  ParagraphAccordionFragment,
+  ParagraphAccordionItemFragment,
+  ParagraphHeroFragment,
+  ParagraphCardGroupFragment,
+  ParagraphCardFragment
+} from "@/graphql/fragments/paragraphs";
+
 import { ParagraphUnionFragment } from "@/graphql/fragments/paragraph";
-import { ParagraphViewFragment } from "@/components/paragraphs/ParagraphView";
 import { TermUnionFragment, TermAuthorFragment, TermTagFragment } from "@/graphql/fragments/term";
 import { UserFragment } from "@/graphql/fragments/user";
 import { getClientWithAuth } from "@/utils/client.server";

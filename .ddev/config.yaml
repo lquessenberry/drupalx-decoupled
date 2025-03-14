@@ -15,20 +15,26 @@ web_environment: []
 nodejs_version: "20"
 corepack_enable: false
 
-# Expose Next.js and Storybook ports
+# Key features of DDEV's config.yaml:
+
+# Expose Next.js ports
 web_extra_exposed_ports:
   - name: nextjs
-    container_port: 3000
-    http_port: 3000
-    https_port: 3000
-  - name: storybook
-    container_port: 6006
-    http_port: 6006
-    https_port: 6006
+    container_port: 8080
+    http_port: 8080
+    https_port: 8443
+
+# Run Next.js inside DDEV
+web_extra_daemons:
+  - name: nextjs
+    command: "cd /var/www/html/nextjs && npm run dev"
+    directory: /var/www/html/nextjs
 
 # Add post-start hook to run setup
 hooks:
   post-start:
+    - exec-host: "cd nextjs && npm install"
+    - exec: "cd /var/www/html/nextjs && npm install"
     - exec: setup-axanar
 
 # Key features of DDEV's config.yaml:
