@@ -1,32 +1,27 @@
 export const ParagraphTextFragment = /* GraphQL */ `
   fragment ParagraphTextFragment on ParagraphText {
     id
-    __typename
-    fieldText {
-      processed
-    }
+    text
   }
 `;
 
 export const ParagraphHeroFragment = /* GraphQL */ `
   fragment ParagraphHeroFragment on ParagraphHero {
     id
-    __typename
-    fieldTitle
-    fieldSubtitle
-    fieldBody {
+    heading
+    heroLayout
+    summary {
       processed
     }
-    fieldImage {
-      url
-      alt
-      width
-      height
+    media {
+      ...MediaImageFragment
     }
-    fieldLink {
-      url {
-        path
-      }
+    link {
+      url
+      title
+    }
+    link2 {
+      url
       title
     }
   }
@@ -35,10 +30,9 @@ export const ParagraphHeroFragment = /* GraphQL */ `
 export const ParagraphAccordionFragment = /* GraphQL */ `
   fragment ParagraphAccordionFragment on ParagraphAccordion {
     id
-    __typename
-    fieldTitle
-    fieldAccordionItems {
-      entity {
+    title
+    accordionItem {
+      entities {
         ...ParagraphAccordionItemFragment
       }
     }
@@ -48,9 +42,8 @@ export const ParagraphAccordionFragment = /* GraphQL */ `
 export const ParagraphAccordionItemFragment = /* GraphQL */ `
   fragment ParagraphAccordionItemFragment on ParagraphAccordionItem {
     id
-    __typename
-    fieldTitle
-    fieldBody {
+    title
+    body {
       processed
     }
   }
@@ -59,12 +52,9 @@ export const ParagraphAccordionItemFragment = /* GraphQL */ `
 export const ParagraphCardGroupFragment = /* GraphQL */ `
   fragment ParagraphCardGroupFragment on ParagraphCardGroup {
     id
-    __typename
-    fieldTitle
-    fieldCards {
-      entity {
-        ...ParagraphCardFragment
-      }
+    title
+    card {
+      ...ParagraphCardFragment
     }
   }
 `;
@@ -72,19 +62,13 @@ export const ParagraphCardGroupFragment = /* GraphQL */ `
 export const ParagraphCardFragment = /* GraphQL */ `
   fragment ParagraphCardFragment on ParagraphCard {
     id
-    __typename
-    fieldTitle
-    fieldBody {
-      processed
+    title
+    summary
+    media {
+      ...MediaImageFragment
     }
-    fieldImage {
+    link {
       url
-      alt
-    }
-    fieldLink {
-      url {
-        path
-      }
       title
     }
   }
@@ -93,17 +77,9 @@ export const ParagraphCardFragment = /* GraphQL */ `
 export const ParagraphMediaFragment = /* GraphQL */ `
   fragment ParagraphMediaFragment on ParagraphMedia {
     id
-    __typename
-    fieldTitle
-    fieldEyebrow
-    fieldBody {
-      processed
-    }
-    fieldImage {
-      url
-      alt
-      width
-      height
+    title
+    media {
+      ...MediaImageFragment
     }
   }
 `;
@@ -111,22 +87,26 @@ export const ParagraphMediaFragment = /* GraphQL */ `
 export const ParagraphQuoteFragment = /* GraphQL */ `
   fragment ParagraphQuoteFragment on ParagraphQuote {
     id
-    __typename
-    fieldQuote {
-      processed
+    quote
+    author
+    jobTitle
+    thumb {
+      ...MediaImageFragment
     }
-    fieldAttribution
+    logo {
+      ...MediaImageFragment
+    }
   }
 `;
 
 export const ParagraphStatsItemFragment = /* GraphQL */ `
   fragment ParagraphStatsItemFragment on ParagraphStatsItem {
     id
-    __typename
-    fieldTitle
-    fieldValue
-    fieldDescription {
-      processed
+    title
+    summary
+    icon
+    customIcon {
+      ...MediaImageFragment
     }
   }
 `;
@@ -134,11 +114,12 @@ export const ParagraphStatsItemFragment = /* GraphQL */ `
 export const ParagraphGalleryFragment = /* GraphQL */ `
   fragment ParagraphGalleryFragment on ParagraphGallery {
     id
-    __typename
-    fieldTitle
-    fieldImages {
-      url
-      alt
+    title
+    body {
+      processed
+    }
+    mediaItem {
+      ...MediaImageFragment
     }
   }
 `;
@@ -146,25 +127,31 @@ export const ParagraphGalleryFragment = /* GraphQL */ `
 export const ParagraphSidebysideFragment = /* GraphQL */ `
   fragment ParagraphSidebysideFragment on ParagraphSidebyside {
     id
-    __typename
-    fieldTitle
-    fieldBody {
+    title
+    eyebrow
+    summary {
       processed
     }
-    fieldImage {
-      url
-      alt
+    media {
+      ...MediaImageFragment
     }
-    fieldLayout
+    sidebysideLayout
+    link {
+      url
+      title
+    }
+    features {
+      ...ParagraphBulletFragment
+      ...ParagraphStatsItemFragment
+    }
   }
 `;
 
 export const ParagraphBulletFragment = /* GraphQL */ `
   fragment ParagraphBulletFragment on ParagraphBullet {
     id
-    __typename
-    fieldTitle
-    fieldBody {
+    title
+    body {
       processed
     }
   }
@@ -173,12 +160,19 @@ export const ParagraphBulletFragment = /* GraphQL */ `
 export const ParagraphCarouselFragment = /* GraphQL */ `
   fragment ParagraphCarouselFragment on ParagraphCarousel {
     id
-    __typename
-    fieldTitle
-    fieldSlides {
-      entity {
-        ...ParagraphCardFragment
-      }
+    carouselItem {
+      ...ParagraphCarouselItemFragment
+    }
+  }
+`;
+
+export const ParagraphCarouselItemFragment = /* GraphQL */ `
+  fragment ParagraphCarouselItemFragment on ParagraphCarouselItem {
+    id
+    title
+    summary
+    media {
+      ...MediaImageFragment
     }
   }
 `;
@@ -186,69 +180,17 @@ export const ParagraphCarouselFragment = /* GraphQL */ `
 export const ParagraphEmbedFragment = /* GraphQL */ `
   fragment ParagraphEmbedFragment on ParagraphEmbed {
     id
-    __typename
-    fieldTitle
-    fieldBody {
-      processed
-    }
-    fieldEmbedCode
+    title
+    script
   }
 `;
 
 export const ParagraphNewsletterFragment = /* GraphQL */ `
   fragment ParagraphNewsletterFragment on ParagraphNewsletter {
     id
-    __typename
-    fieldTitle
-    fieldBody {
+    title
+    summary {
       processed
-    }
-    fieldFormId
-  }
-`;
-
-export const ParagraphPricingCardFragment = /* GraphQL */ `
-  fragment ParagraphPricingCardFragment on ParagraphPricingCard {
-    id
-    __typename
-    fieldTitle
-    fieldPrice
-    fieldDescription {
-      processed
-    }
-    fieldFeatures {
-      processed
-    }
-    fieldLink {
-      url {
-        path
-      }
-      title
-    }
-  }
-`;
-
-export const ParagraphPricingFragment = /* GraphQL */ `
-  fragment ParagraphPricingFragment on ParagraphPricing {
-    id
-    __typename
-    fieldTitle
-    fieldCards {
-      entity {
-        ...ParagraphPricingCardFragment
-      }
-    }
-  }
-`;
-
-export const ParagraphLogoCollectionFragment = /* GraphQL */ `
-  fragment ParagraphLogoCollectionFragment on ParagraphLogoCollection {
-    id
-    __typename
-    fieldTitle
-    fieldLogos {
-      url
-      alt
     }
   }
 `;
@@ -256,10 +198,20 @@ export const ParagraphLogoCollectionFragment = /* GraphQL */ `
 export const ParagraphViewFragment = /* GraphQL */ `
   fragment ParagraphViewFragment on ParagraphView {
     id
-    __typename
-    fieldTitle
-    fieldViewId
-    fieldDisplay
+    view {
+      id
+      display
+    }
+  }
+`;
+
+export const ParagraphLogoCollectionFragment = /* GraphQL */ `
+  fragment ParagraphLogoCollectionFragment on ParagraphLogoCollection {
+    id
+    title
+    mediaItem {
+      ...MediaImageFragment
+    }
   }
 `;
 
@@ -270,7 +222,6 @@ export const ParagraphUnionFragment = /* GraphQL */ `
     ...ParagraphHeroFragment
     ...ParagraphAccordionFragment
     ...ParagraphCardGroupFragment
-    ...ParagraphCardFragment
     ...ParagraphMediaFragment
     ...ParagraphQuoteFragment
     ...ParagraphStatsItemFragment
@@ -278,11 +229,10 @@ export const ParagraphUnionFragment = /* GraphQL */ `
     ...ParagraphSidebysideFragment
     ...ParagraphBulletFragment
     ...ParagraphCarouselFragment
+    ...ParagraphCarouselItemFragment
     ...ParagraphEmbedFragment
     ...ParagraphNewsletterFragment
-    ...ParagraphPricingFragment
-    ...ParagraphPricingCardFragment
-    ...ParagraphLogoCollectionFragment
     ...ParagraphViewFragment
+    ...ParagraphLogoCollectionFragment
   }
 `;

@@ -1,6 +1,7 @@
 export const ParagraphUnionFragment = /* GraphQL */ `
   fragment ParagraphUnionFragment on ParagraphUnion {
     __typename
+    ...ParagraphTextFragment
     ...ParagraphAccordionFragment
     ...ParagraphCardGroupFragment
     ...ParagraphCarouselFragment
@@ -13,7 +14,6 @@ export const ParagraphUnionFragment = /* GraphQL */ `
     ...ParagraphPricingFragment
     ...ParagraphQuoteFragment
     ...ParagraphSidebysideFragment
-    ...ParagraphTextFragment
     ...ParagraphViewFragment
   }
 `;

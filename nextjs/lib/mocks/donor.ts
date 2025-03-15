@@ -2,7 +2,7 @@ export const mockDonorPerk = {
   id: 'perk-1',
   title: 'Digital Download',
   status: true,
-  body: {
+  fieldDescription: {
     processed: '<p>Get early access to digital downloads of the film.</p>',
     summary: 'Early access to digital content'
   },
@@ -28,15 +28,25 @@ export const mockDonorCampaign = {
   id: 'campaign-1',
   title: 'Axanar Film Production',
   status: true,
-  body: {
+  description: {
     processed: '<p>Help us bring the story of Garth of Izar to life!</p>',
     summary: 'Support Axanar production'
   },
-  fieldCampaignGoal: 100000,
-  fieldPackages: {
+  goalAmount: 100000,
+  image: {
+    __typename: 'MediaImage',
+    id: 'image-1',
+    image: {
+      url: 'https://example.com/image.jpg',
+      alt: 'Axanar Film Production',
+      width: 500,
+      height: 300
+    }
+  },
+  packages: {
     entities: [mockDonorPackage]
   },
   created: { timestamp: '2025-03-10T19:00:00' },
   changed: { timestamp: '2025-03-10T19:00:00' },
   path: { alias: '/campaign/axanar-film', pid: '3', langcode: 'en' }
-}
+};

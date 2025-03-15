@@ -20,17 +20,14 @@ import {
   TextFragment,
   TextSummaryFragment,
   DateTimeFragment,
-  LanguageFragment,
-  LinkFragment
+  LanguageFragment
 } from '@/graphql/fragments/misc';
 
 import {
   MediaUnionFragment,
   MediaImageFragment,
   MediaVideoFragment,
-  ImageFragment,
-  SvgMediaFragment,
-  SvgImageFragment
+  ImageFragment
 } from "@/graphql/fragments/media";
 
 import {
@@ -46,14 +43,26 @@ import {
 } from "@/graphql/fragments/metatag";
 
 import {
+  ParagraphUnionFragment,
+  ParagraphHeroFragment,
+  ParagraphTextFragment,
+  ParagraphMediaFragment,
+  ParagraphQuoteFragment,
   ParagraphAccordionFragment,
   ParagraphAccordionItemFragment,
-  ParagraphHeroFragment,
   ParagraphCardGroupFragment,
-  ParagraphCardFragment
-} from "@/graphql/fragments/paragraphs";
+  ParagraphCardFragment,
+  ParagraphStatsItemFragment,
+  ParagraphGalleryFragment,
+  ParagraphSidebysideFragment,
+  ParagraphBulletFragment,
+  ParagraphCarouselFragment,
+  ParagraphEmbedFragment,
+  ParagraphNewsletterFragment,
+  ParagraphLogoCollectionFragment,
+  ParagraphViewFragment
+} from "@/graphql/fragments/paragraphs/index";
 
-import { ParagraphUnionFragment } from "@/graphql/fragments/paragraph";
 import { TermUnionFragment, TermAuthorFragment, TermTagFragment } from "@/graphql/fragments/term";
 import { UserFragment } from "@/graphql/fragments/user";
 import { getClientWithAuth } from "@/utils/client.server";
@@ -190,6 +199,7 @@ async function getDrupalData({ params }: { params: { slug: string[] } }) {
         }
       }
     }
+
     # Node fragments
     ${NodePageFragment}
     ${NodeArticleFragment}
@@ -203,15 +213,12 @@ async function getDrupalData({ params }: { params: { slug: string[] } }) {
     ${TextSummaryFragment}
     ${DateTimeFragment}
     ${LanguageFragment}
-    ${LinkFragment}
 
     # Media fragments
     ${MediaUnionFragment}
     ${MediaImageFragment}
     ${MediaVideoFragment}
     ${ImageFragment}
-    ${SvgMediaFragment}
-    ${SvgImageFragment}
 
     # Metatag fragments
     ${MetaTagUnionFragment}
@@ -241,8 +248,6 @@ async function getDrupalData({ params }: { params: { slug: string[] } }) {
     ${ParagraphCarouselFragment}
     ${ParagraphEmbedFragment}
     ${ParagraphNewsletterFragment}
-    ${ParagraphPricingFragment}
-    ${ParagraphPricingCardFragment}
     ${ParagraphLogoCollectionFragment}
     ${ParagraphViewFragment}
 

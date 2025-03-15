@@ -1212,9 +1212,6 @@ type NodeArticle implements NodeInterface & MetaTagInterface & EdgeNode {
   """Sticky at top of lists"""
   sticky: Boolean!
 
-  """Subhead"""
-  subhead: String
-
   """Summary"""
   summary: String
 
@@ -1883,32 +1880,17 @@ type ParagraphText implements ParagraphInterface & EdgeNode {
   """The Universally Unique IDentifier (UUID)."""
   id: ID!
 
-  """Body"""
-  body: TextSummary!
-
   """The time that the Paragraph was created."""
   created: DateTime!
-
-  """Provide a short label for this content."""
-  eyebrow: String
 
   """The paragraphs entity language code."""
   langcode: Language!
 
-  """Optional CTA link."""
-  link: Link
-
-  """Optional link."""
-  link2: Link
-
   """Published"""
   status: Boolean!
 
-  """Layout"""
-  textLayout: String!
-
-  """Provide the primary heading for the text content."""
-  title: String
+  """Text"""
+  text: String!
 }
 
 """
@@ -2812,4 +2794,9 @@ type ViewReference {
   The name of the query used to fetch the data, if the view is a GraphQL display.
   """
   query: String
+}
+
+fragment ParagraphTextFragment on ParagraphText {
+  id
+  text
 }

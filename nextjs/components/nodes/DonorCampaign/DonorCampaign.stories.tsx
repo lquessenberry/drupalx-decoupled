@@ -25,7 +25,11 @@ export const Loading: Story = {
 
 export const Error: Story = {
   args: {
-    error: new Error('Failed to load campaign data'),
+    error: {
+      message: 'Failed to load campaign data',
+      name: 'Error',
+      stack: ''
+    },
   },
 }
 
@@ -33,7 +37,7 @@ export const NoPackages: Story = {
   args: {
     node: {
       ...mockDonorCampaign,
-      fieldPackages: { entities: [] },
+      packages: { entities: [] },
     },
   },
 }

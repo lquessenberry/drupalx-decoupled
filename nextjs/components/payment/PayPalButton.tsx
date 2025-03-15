@@ -1,40 +1,46 @@
 import { PayPalButtons } from '@paypal/react-paypal-js'
-import { usePayment } from './PaymentProvider'
+import type { OnApproveData, OnApproveActions } from '@paypal/paypal-js'
 
 interface PayPalButtonProps {
   amount: number
-  packageId: string
   onSuccess?: (details: any) => void
-  onError?: (error: any) => void
+  onError?: (error: Error) => void
 }
 
-export function PayPalButton({ amount, packageId, onSuccess, onError }: PayPalButtonProps) {
-  const { createPayment } = usePayment()
-
+export function PayPalButton({ amount, onSuccess, onError }: PayPalButtonProps) {
   return (
     <PayPalButtons
-      style={{ layout: 'vertical' }}
-      createOrder={async () => {
-        try {
-          const { orderId } = await createPayment(amount, packageId)
-          return orderId
-        } catch (error) {
-          onError?.(error)
-          throw error
-        }
+      style={{
+        color: 'blue',
+        shape: 'rect',
+        label: 'pay',
+        height: 40,
       }}
-      onApprove={async (data, actions) => {
+      createOrder={(data, actions) => {
+        return actions.order.create({
+          intent: "CAPTURE",
+          purchase_units: [
+            {
+              amount: {
+                value: amount.toString(),
+                currency_code: 'USD',
+              },
+            },
+          ],
+        })
+      }}
+      onApprove={async (data: OnApproveData, actions: OnApproveActions) => {
         try {
           const details = await actions.order?.capture()
           onSuccess?.(details)
-          return details
-        } catch (error) {
+          return
+        } catch (err) {
+          const error = err instanceof Error ? err : new Error(String(err))
           onError?.(error)
-          throw error
         }
       }}
-      onError={(error) => {
-        console.error('PayPal Error:', error)
+      onError={(err) => {
+        const error = err instanceof Error ? err : new Error(String(err))
         onError?.(error)
       }}
     />

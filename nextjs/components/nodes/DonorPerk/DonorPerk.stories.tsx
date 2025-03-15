@@ -32,15 +32,19 @@ export const Loading: Story = {
 
 export const Error: Story = {
   args: {
-    error: new Error('Failed to load perk data'),
+    error: {
+      message: 'Failed to load perk data',
+      name: 'Error',
+      stack: ''
+    },
   },
 }
 
-export const NoBody: Story = {
+export const NoDescription: Story = {
   args: {
     node: {
       ...mockDonorPerk,
-      body: undefined,
+      fieldDescription: undefined,
     },
   },
 }

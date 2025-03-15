@@ -5,13 +5,17 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 interface DonorPerkProps {
   node?: NodeDonorPerk
   loading?: boolean
-  error?: Error
+  error?: {
+      message: string;
+      name: string;
+      stack: string;
+    }
 }
 
 export function DonorPerk({ node, loading, error }: DonorPerkProps) {
   if (loading) {
     return (
-      <div className="donor-perk p-4 bg-gray-50 rounded-md min-h-[100px] flex items-center justify-center">
+      <div className="min-h-[200px] flex items-center justify-center">
         <LoadingSpinner />
       </div>
     )
@@ -19,9 +23,10 @@ export function DonorPerk({ node, loading, error }: DonorPerkProps) {
 
   if (error) {
     return (
-      <div className="donor-perk p-4 bg-gray-50 rounded-md min-h-[100px] flex items-center justify-center">
+      <div className="min-h-[200px] flex items-center justify-center">
         <div className="text-center text-red-600">
-          <p className="text-sm">{error.message}</p>
+          <h3 className="text-xl font-semibold mb-2">Error Loading Perk</h3>
+          <p>{error.message}</p>
         </div>
       </div>
     )
@@ -29,9 +34,9 @@ export function DonorPerk({ node, loading, error }: DonorPerkProps) {
 
   if (!node) {
     return (
-      <div className="donor-perk p-4 bg-gray-50 rounded-md min-h-[100px] flex items-center justify-center">
+      <div className="min-h-[200px] flex items-center justify-center">
         <div className="text-center text-gray-600">
-          <p className="text-sm">Perk Not Found</p>
+          <h3 className="text-xl font-semibold">Perk Not Found</h3>
         </div>
       </div>
     )
@@ -39,16 +44,24 @@ export function DonorPerk({ node, loading, error }: DonorPerkProps) {
 
   const {
     title,
-    body,
+    fieldDescription,
+    fieldImage,
   } = node
 
   return (
-    <div className="donor-perk p-4 bg-gray-50 rounded-md">
-      <h5 className="font-medium mb-2">{title}</h5>
-      {body?.processed && (
-        <div 
-          className="prose prose-sm max-w-none text-gray-600"
-          dangerouslySetInnerHTML={{ __html: body.processed }}
+    <div className="donor-perk">
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      {fieldDescription?.processed && (
+        <div
+          className="prose max-w-none mb-4"
+          dangerouslySetInnerHTML={{ __html: fieldDescription.processed }}
+        />
+      )}
+      {fieldImage?.image?.url && (
+        <img
+          src={fieldImage.image.url}
+          alt={fieldImage.image.alt || title}
+          className="w-full h-auto rounded-lg shadow-lg mb-6"
         />
       )}
     </div>

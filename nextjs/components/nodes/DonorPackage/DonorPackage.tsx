@@ -1,19 +1,37 @@
+"use client";
+
 import React, { useState } from 'react'
-import { NodeDonorPackage } from '@/lib/types'
-import { DonorPerk } from '../DonorPerk/DonorPerk'
+import { NodeDonorPackage, DonorPerk } from '@/lib/types'
+import { DonorPerk as DonorPerkComponent } from '../DonorPerk/DonorPerk'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { PayPalButton } from '@/components/payment/PayPalButton'
+
+interface PayPalDetails {
+  id: string;
+  status: string;
+  [key: string]: any;
+}
+
+interface PayPalError {
+  message: string;
+  [key: string]: any;
+}
 
 interface DonorPackageProps {
   node?: NodeDonorPackage
   loading?: boolean
-  error?: Error
+  error?: {
+    message: string
+    name: string
+    stack: string
+  }
   onSelect?: (packageId: string) => void
 }
 
 export function DonorPackage({ node, loading, error, onSelect }: DonorPackageProps) {
+  const [paymentStatus, setPaymentStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [paymentError, setPaymentError] = useState<string | null>(null)
   const [showPayment, setShowPayment] = useState(false)
-  const [paymentError, setPaymentError] = useState<string>()
 
   if (loading) {
     return (
@@ -52,31 +70,33 @@ export function DonorPackage({ node, loading, error, onSelect }: DonorPackagePro
   } = node
 
   const handlePaymentSuccess = (details: any) => {
-    console.log('Payment successful:', details)
-    // TODO: Update order status in Drupal
+    setPaymentStatus('success')
+    setPaymentError(null)
     onSelect?.(id)
   }
 
-  const handlePaymentError = (error: any) => {
-    console.error('Payment failed:', error)
-    setPaymentError('Payment failed. Please try again.')
+  const handlePaymentError = (error: Error) => {
+    setPaymentStatus('error')
+    setPaymentError(error.message)
   }
+
+  const hasPerks = fieldPackagePerks?.entities && fieldPackagePerks.entities.length > 0
 
   return (
     <div className="donor-package rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow">
       <div className="flex justify-between items-start mb-4">
         <h3 className="text-xl font-semibold">{title}</h3>
         <div className="text-2xl font-bold text-primary">
-          ${Number(fieldPackagePrice).toLocaleString()}
+          ${fieldPackagePrice.toLocaleString()}
         </div>
       </div>
 
-      {fieldPackagePerks?.entities?.length > 0 && (
+      {hasPerks && (
         <div className="perks-list">
           <h4 className="text-lg font-medium mb-2">Included Perks:</h4>
           <div className="space-y-4">
-            {fieldPackagePerks.entities.map((perk) => (
-              <DonorPerk key={perk.id} node={perk} />
+            {fieldPackagePerks.entities.map((perk: DonorPerk) => (
+              <DonorPerkComponent key={perk.id} node={perk} />
             ))}
           </div>
         </div>
@@ -88,27 +108,40 @@ export function DonorPackage({ node, loading, error, onSelect }: DonorPackagePro
         </div>
       )}
 
-      {!showPayment ? (
-        <button 
-          className="w-full mt-6 px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors"
-          onClick={() => setShowPayment(true)}
-        >
-          Select Package
-        </button>
+      {paymentStatus === 'success' ? (
+        <div className="text-center text-green-600">
+          <h3 className="text-xl font-semibold mb-2">Thank You!</h3>
+          <p>Your payment has been processed successfully.</p>
+        </div>
+      ) : paymentStatus === 'error' ? (
+        <div className="text-center text-red-600 mb-4">
+          <h3 className="text-xl font-semibold mb-2">Payment Error</h3>
+          <p>{paymentError}</p>
+        </div>
       ) : (
-        <div className="mt-6">
-          <PayPalButton
-            amount={fieldPackagePrice}
-            packageId={id}
-            onSuccess={handlePaymentSuccess}
-            onError={handlePaymentError}
-          />
-          <button
-            className="w-full mt-3 px-6 py-2 text-gray-600 hover:text-gray-800 text-sm"
-            onClick={() => setShowPayment(false)}
-          >
-            Cancel
-          </button>
+        <div>
+          {!showPayment ? (
+            <button 
+              className="w-full mt-6 px-6 py-3 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors"
+              onClick={() => setShowPayment(true)}
+            >
+              Select Package
+            </button>
+          ) : (
+            <div className="mt-6">
+              <PayPalButton
+                amount={fieldPackagePrice}
+                onSuccess={handlePaymentSuccess}
+                onError={handlePaymentError}
+              />
+              <button
+                className="w-full mt-3 px-6 py-2 text-gray-600 hover:text-gray-800 text-sm"
+                onClick={() => setShowPayment(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

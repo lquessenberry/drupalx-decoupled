@@ -28,7 +28,11 @@ export const Loading: Story = {
 
 export const Error: Story = {
   args: {
-    error: new Error('Failed to load package data'),
+    error: {
+      message: 'Failed to load package data',
+      name: 'Error',
+      stack: ''
+    },
   },
 }
 
